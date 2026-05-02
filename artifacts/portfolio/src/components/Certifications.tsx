@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { Award, CheckCircle2 } from "lucide-react";
-import { SiCisco, SiAmazon, SiComptia, SiPaloaltonetworks } from "react-icons/si";
+import { Award, CheckCircle2, Cloud } from "lucide-react";
+import { SiCisco, SiComptia, SiPaloaltonetworks } from "react-icons/si";
 
 const certifications = [
   {
@@ -14,7 +14,7 @@ const certifications = [
     name: "AWS Certified Advanced Networking - Specialty",
     issuer: "Amazon Web Services",
     date: "2023",
-    icon: SiAmazon,
+    icon: Cloud,
     id: "AWS-ANS-98765",
   },
   {
