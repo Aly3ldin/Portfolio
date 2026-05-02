@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Terminal, Menu, X } from "lucide-react";
+import { Terminal, Menu, X, Sun, Moon } from "lucide-react";
 import { Button } from "./ui/button";
+import { useTheme } from "@/context/ThemeContext";
 
 const navItems = [
   { name: "About", href: "#about" },
@@ -17,6 +18,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,18 +83,36 @@ export default function Navbar() {
               {item.name.toLowerCase()}
             </a>
           ))}
-          <Button variant="outline" size="sm" className="font-mono border-primary/50 text-primary hover:bg-primary/10 ml-4" asChild>
+          <button
+            data-testid="button-theme-toggle"
+            onClick={toggleTheme}
+            className="p-2 rounded-md text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <Button variant="outline" size="sm" className="font-mono border-primary/50 text-primary hover:bg-primary/10" asChild>
             <a href="#contact" onClick={(e) => scrollTo(e, "#contact")}>INIT_CONNECTION</a>
           </Button>
         </nav>
 
         {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden text-foreground hover:text-primary transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            data-testid="button-theme-toggle-mobile"
+            onClick={toggleTheme}
+            className="p-2 rounded-md text-muted-foreground hover:text-primary transition-colors"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <button
+            className="text-foreground hover:text-primary transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav */}
